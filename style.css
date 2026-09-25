@@ -1,0 +1,133 @@
+/* Configurações Globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0d1117; /* Preto azulado escuro */
+  color: #ffffff; /* Texto branco principal */
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.subtitulo {
+  color: #8b949e; /* Cinza claro para o subtítulo */
+  font-size: 1.1rem;
+}
+
+/* Cards de Resumo */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #161b22; /* Fundo dos cards levemente mais claro que o fundo do site */
+  border: 1px solid #30363d;
+  border-radius: 12px; /* Bordas arredondadas */
+  padding: 20px;
+  text-align: center;
+}
+
+.card h3 {
+  font-size: 0.9rem;
+  color: #8b949e;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.valor-card {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.status-frequencia {
+  display: block;
+  font-size: 0.8rem;
+  color: #3fb950; /* Verde discreto para indicar status adequado */
+  margin-top: 5px;
+}
+
+/* Tabela Responsiva */
+.tabela-container {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  overflow-x: auto; /* Permite rolar para os lados no celular se necessário */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th, td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #30363d;
+}
+
+th {
+  background-color: #21262d;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Estilos de Situação */
+.situacao-bom {
+  color: #3fb950; /* Verde para bom desempenho */
+  font-weight: bold;
+}
+
+.situacao-atencao {
+  color: #f85149; /* Vermelho/laranja para atenção */
+  font-weight: bold;
+}
+
+.situacao-indisponivel {
+  color: #8b949e; /* Cinza para nota não disponível */
+}
+
+/* Ajustes para telas de Celular */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  th, td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+}
