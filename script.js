@@ -154,7 +154,7 @@ function carregarBoletim() {
 
     if (notasValidas.length > 0) {
       const soma = notasValidas.reduce((acc, n) => acc + n, 0);
-      media = soma / notasValidas.length;
+      media = soma / parseInt(notasValidas.length);
       somaMediasGerais += media;
       totalDisciplinasComMedia++;
 
@@ -256,3 +256,113 @@ function abrirEditor() {
       <td><input type="text" id="f3-${index}" value="${obterFaltaPorTrimestre(item.faltas, 2)}"></td>
     `;
 
+corpoEditor.appendChild(linha);
+});
+document.getElementById("modal-editor").style.display = "flex";
+}
+// Fecha a tela de edição
+function fecharEditor() {
+document.getElementById("modal-editor").style.display = "none";
+}
+// Processa, valida rigorosamente e envia os dados editados para a API
+async function salvarAlteracoes() {
+const msgSalvar = document.getElementById("mensagem-salvar");
+let validacaoOk = true;
+const novasDisciplinas = [];
+// Remove marcações de erros anteriores
+const inputs = document.querySelectorAll(".tabela-editor-container input");
+inputs.forEach(inp => inp.classList.remove("campo-invalido"));
+// Varredura e validação linha por linha
+for (let i = 0; i < disciplinas.length; i++) {
+const inpN1 = document.getElementById(n1-${i});
+const inpN2 = document.getElementById(n2-${i});
+const inpN3 = document.getElementById(n3-${i});
+const inpF1 = document.getElementById(f1-${i});
+const inpF2 = document.getElementById(f2-${i});
+const inpF3 = document.getElementById(f3-${i});
+const validarEConverterNota = (inputElement) => {
+const v = inputElement.value.trim();
+if (v === "") return null;
+// Bloqueia expressamente formatos brutos multiplicados (ex: 75, 82)
+if (/^\d{2,3}$/.test(v)) {
+const nCheck = parseFloat(v);
+if (nCheck > 10) {
+inputElement.classList.add("campo-invalido");
+validacaoOk = false;
+return false;
+}
+}
+const textoLimpo = v.replace(',', '.');
+const num = parseFloat(textoLimpo);
+if (isNaN(num) || num < 0 || num > 10 || !/^\d+(.\d+)?$/.test(textoLimpo)) {
+inputElement.classList.add("campo-invalido");
+validacaoOk = false;
+return false;
+}
+return num;
+};
+const validarEConverterFalta = (inputElement) => {
+const v = inputElement.value.trim();
+if (!/^\d+$/.test(v)) {
+inputElement.classList.add("campo-invalido");
+validacaoOk = false;
+return false;
+}
+const num = parseInt(v, 10);
+if (num < 0) {
+inputElement.classList.add("campo-invalido");
+validacaoOk = false;
+return false;
+}
+return num;
+};
+const n1 = validarEConverterNota(inpN1);
+const n2 = validarEConverterNota(inpN2);
+const n3 = validarEConverterNota(inpN3);
+const f1 = validarEConverterFalta(inpF1);
+const f2 = validarEConverterFalta(inpF2);
+const f3 = validarEConverterFalta(inpF3);
+if (validacaoOk) {
+novasDisciplinas.push({
+disciplina: disciplinas[i].disciplina,
+tri1: n1,
+tri2: n2,
+tri3: n3,
+faltas: [f1, f2, f3]
+});
+}
+}
+if (!validacaoOk) {
+msgSalvar.className = "mensagem-status status-erro";
+msgSalvar.textContent = "Existem campos com valores inválidos. Corrija-os para salvar.";
+return;
+}
+msgSalvar.className = "mensagem-status";
+msgSalvar.textContent = "Salvando...";
+try {
+const resposta = await fetch(${CONFIG_ALUNO.apiUrl}/api/v1/boletins/salvar, {
+method: "PUT",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+turma: CONFIG_ALUNO.turma,
+numero_chamada: CONFIG_ALUNO.numeroChamada,
+pin: pinSessao,
+dados: {
+disciplinas: novasDisciplinas
+}
+})
+});
+if (resposta.status === 200) {
+disciplinas = novasDisciplinas; // Sobrescreve com os dados validados com sucesso
+carregarBoletim();
+fecharEditor();
+alert("Dados salvos com sucesso.");
+} else {
+msgSalvar.className = "mensagem-status status-erro";
+msgSalvar.textContent = "Erro do servidor ao salvar as alterações. Tente novamente.";
+}
+} catch (erro) {
+msgSalvar.className = "mensagem-status status-erro";
+msgSalvar.textContent = "Falha de rede. Não foi possível salvar as alterações.";
+}
+}
