@@ -88,19 +88,14 @@ async function autenticarEstudante() {
     if (resposta.status === 200) {
       const respostaDados = await resposta.json();
       
-      // Salva o PIN de forma estrita apenas na memória
       pinSessao = pinDigitado;
-      
-      // Limpa de imediato o campo de input por questões de segurança
       campoPin.value = "";
       msgAcesso.textContent = "";
 
-      // Se a API retornar dados válidos, substitui os dados locais de forma obrigatória
       if (respostaDados && respostaDados.dados && respostaDados.dados.disciplinas) {
         disciplinas = respostaDados.dados.disciplinas;
       }
 
-      // Transiciona a interface escondendo o acesso e revelando o boletim
       document.getElementById("secao-acesso").style.display = "none";
       document.getElementById("conteudo-boletim").style.display = "block";
 
@@ -121,10 +116,10 @@ async function autenticarEstudante() {
   }
 }
 
-// Função principal que processa os dados e preenche a página de forma limpa (DOM seguro)
+// Função principal que processa os dados e preenche a página
 function carregarBoletim() {
   const corpoTabela = document.getElementById("corpo-tabela");
-  corpoTabela.innerHTML = ""; // Limpa a tabela para prevenir duplicações
+  corpoTabela.innerHTML = "";
 
   let somaMediasGerais = 0;
   let totalDisciplinasComMedia = 0;
@@ -133,12 +128,10 @@ function carregarBoletim() {
   let qtdAtencao = 0;
 
   disciplinas.forEach(item => {
-    // Normalização adaptada para aceitar dados antigos e dados novos limpos
     const n1 = normalizarNota(item.tri1);
     const n2 = normalizarNota(item.tri2);
     const n3 = normalizarNota(item.tri3);
 
-    // Soma das faltas com base em array tradicional ou mapeamento
     let totalFaltasDisciplina = 0;
     if (Array.isArray(item.faltas)) {
       totalFaltasDisciplina = item.faltas.reduce((acc, f) => acc + (parseInt(f) || 0), 0);
@@ -154,7 +147,7 @@ function carregarBoletim() {
 
     if (notasValidas.length > 0) {
       const soma = notasValidas.reduce((acc, n) => acc + n, 0);
-      media = soma / parseInt(notasValidas.length);
+      media = soma / notasValidas.length;
       somaMediasGerais += media;
       totalDisciplinasComMedia++;
 
@@ -169,7 +162,6 @@ function carregarBoletim() {
       }
     }
 
-    // Criação segura de elementos do DOM
     const linha = document.createElement("tr");
 
     const tdNome = document.createElement("td");
@@ -209,7 +201,6 @@ function carregarBoletim() {
     corpoTabela.appendChild(linha);
   });
 
-  // Atualiza os painéis estáticos superiores com formatação limpa
   const mediaGeralFinal = totalDisciplinasComMedia > 0 
     ? (somaMediasGerais / totalDisciplinasComMedia).toFixed(1).replace('.', ',')
     : "—";
@@ -220,7 +211,7 @@ function carregarBoletim() {
   document.getElementById("precisam-atencao").textContent = qtdAtencao;
 }
 
-// Abre a janela de edição renderizando os inputs com dados purificados
+// Abre a janela de edição
 function abrirEditor() {
   const corpoEditor = document.getElementById("corpo-editor");
   corpoEditor.innerHTML = "";
@@ -229,10 +220,6 @@ function abrirEditor() {
   disciplinas.forEach((item, index) => {
     const linha = document.createElement("tr");
 
-    const tdNome = document.createElement("td");
-    tdNome.textContent = item.disciplina;
-
-    // Converte os valores brutos atuais para string amigável ao usuário (ex: 7,5 ou 8.2)
     const extrairInputNota = (valor) => {
       if (valor === null || valor === undefined || valor === "") return "";
       return String(valor).trim();
@@ -243,11 +230,8 @@ function abrirEditor() {
       return tIdx === 0 ? (faltasInput || 0) : 0; 
     };
 
-    // Geração dinâmica dos inputs para edição individual
-    tdNome.innerHTML = `<strong>${item.disciplina}</strong>`;
-    
-    linha.appendChild(tdNome);
-    linha.innerHTML += `
+    linha.innerHTML = `
+      <td><strong>${item.disciplina}</strong></td>
       <td><input type="text" id="n1-${index}" value="${extrairInputNota(item.tri1)}"></td>
       <td><input type="text" id="n2-${index}" value="${extrairInputNota(item.tri2)}"></td>
       <td><input type="text" id="n3-${index}" value="${extrairInputNota(item.tri3)}"></td>
@@ -256,113 +240,128 @@ function abrirEditor() {
       <td><input type="text" id="f3-${index}" value="${obterFaltaPorTrimestre(item.faltas, 2)}"></td>
     `;
 
-corpoEditor.appendChild(linha);
-});
-document.getElementById("modal-editor").style.display = "flex";
+    corpoEditor.appendChild(linha);
+  });
+
+  document.getElementById("modal-editor").style.display = "flex";
 }
+
 // Fecha a tela de edição
 function fecharEditor() {
-document.getElementById("modal-editor").style.display = "none";
+  document.getElementById("modal-editor").style.display = "none";
 }
-// Processa, valida rigorosamente e envia os dados editados para a API
+
+// Processa, valida e envia os dados editados
 async function salvarAlteracoes() {
-const msgSalvar = document.getElementById("mensagem-salvar");
-let validacaoOk = true;
-const novasDisciplinas = [];
-// Remove marcações de erros anteriores
-const inputs = document.querySelectorAll(".tabela-editor-container input");
-inputs.forEach(inp => inp.classList.remove("campo-invalido"));
-// Varredura e validação linha por linha
-for (let i = 0; i < disciplinas.length; i++) {
-const inpN1 = document.getElementById(n1-${i});
-const inpN2 = document.getElementById(n2-${i});
-const inpN3 = document.getElementById(n3-${i});
-const inpF1 = document.getElementById(f1-${i});
-const inpF2 = document.getElementById(f2-${i});
-const inpF3 = document.getElementById(f3-${i});
-const validarEConverterNota = (inputElement) => {
-const v = inputElement.value.trim();
-if (v === "") return null;
-// Bloqueia expressamente formatos brutos multiplicados (ex: 75, 82)
-if (/^\d{2,3}$/.test(v)) {
-const nCheck = parseFloat(v);
-if (nCheck > 10) {
-inputElement.classList.add("campo-invalido");
-validacaoOk = false;
-return false;
-}
-}
-const textoLimpo = v.replace(',', '.');
-const num = parseFloat(textoLimpo);
-if (isNaN(num) || num < 0 || num > 10 || !/^\d+(.\d+)?$/.test(textoLimpo)) {
-inputElement.classList.add("campo-invalido");
-validacaoOk = false;
-return false;
-}
-return num;
-};
-const validarEConverterFalta = (inputElement) => {
-const v = inputElement.value.trim();
-if (!/^\d+$/.test(v)) {
-inputElement.classList.add("campo-invalido");
-validacaoOk = false;
-return false;
-}
-const num = parseInt(v, 10);
-if (num < 0) {
-inputElement.classList.add("campo-invalido");
-validacaoOk = false;
-return false;
-}
-return num;
-};
-const n1 = validarEConverterNota(inpN1);
-const n2 = validarEConverterNota(inpN2);
-const n3 = validarEConverterNota(inpN3);
-const f1 = validarEConverterFalta(inpF1);
-const f2 = validarEConverterFalta(inpF2);
-const f3 = validarEConverterFalta(inpF3);
-if (validacaoOk) {
-novasDisciplinas.push({
-disciplina: disciplinas[i].disciplina,
-tri1: n1,
-tri2: n2,
-tri3: n3,
-faltas: [f1, f2, f3]
-});
-}
-}
-if (!validacaoOk) {
-msgSalvar.className = "mensagem-status status-erro";
-msgSalvar.textContent = "Existem campos com valores inválidos. Corrija-os para salvar.";
-return;
-}
-msgSalvar.className = "mensagem-status";
-msgSalvar.textContent = "Salvando...";
-try {
-const resposta = await fetch(${CONFIG_ALUNO.apiUrl}/api/v1/boletins/salvar, {
-method: "PUT",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
-turma: CONFIG_ALUNO.turma,
-numero_chamada: CONFIG_ALUNO.numeroChamada,
-pin: pinSessao,
-dados: {
-disciplinas: novasDisciplinas
-}
-})
-});
-if (resposta.status === 200) {
-disciplinas = novasDisciplinas; // Sobrescreve com os dados validados com sucesso
-carregarBoletim();
-fecharEditor();
-alert("Dados salvos com sucesso.");
-} else {
-msgSalvar.className = "mensagem-status status-erro";
-msgSalvar.textContent = "Erro do servidor ao salvar as alterações. Tente novamente.";
-}
-} catch (erro) {
-msgSalvar.className = "mensagem-status status-erro";
-msgSalvar.textContent = "Falha de rede. Não foi possível salvar as alterações.";
-}
+  const msgSalvar = document.getElementById("mensagem-salvar");
+  let validacaoOk = true;
+  const novasDisciplinas = [];
+
+  // Remove marcações de erros anteriores
+  const inputs = document.querySelectorAll(".tabela-editor-container input");
+  inputs.forEach(inp => inp.classList.remove("campo-invalido"));
+
+  for (let i = 0; i < disciplinas.length; i++) {
+    const inpN1 = document.getElementById(`n1-${i}`);
+    const inpN2 = document.getElementById(`n2-${i}`);
+    const inpN3 = document.getElementById(`n3-${i}`);
+    const inpF1 = document.getElementById(`f1-${i}`);
+    const inpF2 = document.getElementById(`f2-${i}`);
+    const inpF3 = document.getElementById(`f3-${i}`);
+
+    const validarEConverterNota = (inputElement) => {
+      const v = inputElement.value.trim();
+      if (v === "") return null;
+
+      if (/^\d{2,3}$/.test(v)) {
+        const nCheck = parseFloat(v);
+        if (nCheck > 10) {
+          inputElement.classList.add("campo-invalido");
+          validacaoOk = false;
+          return null;
+        }
+      }
+
+      const textoLimpo = v.replace(',', '.');
+      const num = parseFloat(textoLimpo);
+
+      if (isNaN(num) || num < 0 || num > 10 || !/^\d+(\.\d+)?$/.test(textoLimpo)) {
+        inputElement.classList.add("campo-invalido");
+        validacaoOk = false;
+        return null;
+      }
+
+      return num;
+    };
+
+    const validarEConverterFalta = (inputElement) => {
+      const v = inputElement.value.trim();
+      if (!/^\d+$/.test(v)) {
+        inputElement.classList.add("campo-invalido");
+        validacaoOk = false;
+        return null;
+      }
+
+      const num = parseInt(v, 10);
+      if (num < 0) {
+        inputElement.classList.add("campo-invalido");
+        validacaoOk = false;
+        return null;
+      }
+
+      return num;
+    };
+
+    const n1 = validarEConverterNota(inpN1);
+    const n2 = validarEConverterNota(inpN2);
+    const n3 = validarEConverterNota(inpN3);
+    const f1 = validarEConverterFalta(inpF1);
+    const f2 = validarEConverterFalta(inpF2);
+    const f3 = validarEConverterFalta(inpF3);
+
+    novasDisciplinas.push({
+      disciplina: disciplinas[i].disciplina,
+      tri1: n1,
+      tri2: n2,
+      tri3: n3,
+      faltas: [f1, f2, f3]
+    });
+  }
+
+  if (!validacaoOk) {
+    msgSalvar.className = "mensagem-status status-erro";
+    msgSalvar.textContent = "Existem campos com valores inválidos. Corrija-os para salvar.";
+    return;
+  }
+
+  msgSalvar.className = "mensagem-status";
+  msgSalvar.textContent = "Salvando...";
+
+  try {
+    const resposta = await fetch(`${CONFIG_ALUNO.apiUrl}/api/v1/boletins/salvar`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        turma: CONFIG_ALUNO.turma,
+        numero_chamada: CONFIG_ALUNO.numeroChamada,
+        pin: pinSessao,
+        dados: {
+          disciplinas: novasDisciplinas
+        }
+      })
+    });
+
+    if (resposta.status === 200) {
+      disciplinas = novasDisciplinas;
+      carregarBoletim();
+      fecharEditor();
+      alert("Dados salvos com sucesso.");
+    } else {
+      msgSalvar.className = "mensagem-status status-erro";
+      msgSalvar.textContent = "Erro do servidor ao salvar as alterações. Tente novamente.";
+    }
+  } catch (erro) {
+    msgSalvar.className = "mensagem-status status-erro";
+    msgSalvar.textContent = "Falha de rede. Não foi possível salvar as alterações.";
+  }
 }
