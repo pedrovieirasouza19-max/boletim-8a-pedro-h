@@ -9,22 +9,22 @@ const CONFIG_ALUNO = {
 let pinSessao = "";
 
 // Dados brutos locais das disciplinas do 8º Ano (usados caso a API retorne null)
-let disciplinas = [
-  { disciplina: "Língua Portuguesa", tri1: 80, tri2: "84,0", tri3: null, faltas: [2, 7, 0] },
-  { disciplina: "Matemática", tri1: 69, tri2: "85,0", tri3: null, faltas: [10, 8, 0] },
-  { disciplina: "Ciências", tri1: 85, tri2: "68,0", tri3: null, faltas: [7, 7, 0] },
-  { disciplina: "História", tri1: "88,0", tri2: "88,0", tri3: null, faltas: [3, 3, 0] },
-  { disciplina: "Geografia", tri1: "72,0", tri2: "66,0", tri3: null, faltas: [2, 1, 0] },
-  { disciplina: "Língua Inglesa", tri1: "91,0", tri2: "88,0", tri3: null, faltas: [1, 4, 0] },
-  { disciplina: "Arte", tri1: "62,0", tri2: "60,0", tri3: null, faltas: [2, 4, 0] },
-  { disciplina: "Educação Física", tri1: "91,0", tri2: "92,0", tri3: null, faltas: [1, 2, 0] },
-  { disciplina: "Educação Digital", tri1: "70,0", tri2: "60,0", tri3: null, faltas: [4, 4, 0] },
-  { disciplina: "Educação Financeira", tri1: 76, tri2: "88,0", tri3: null, faltas: [2, 1, 0] },
-  { disciplina: "Estudo Orientado", tri1: "82,0", tri2: "91,0", tri3: null, faltas: [2, 2, 0] },
-  { disciplina: "Redação e Leitura", tri1: "60,0", tri2: "75,0", tri3: null, faltas: [3, 6, 0] },
-  { disciplina: "Pensamento Lógico", tri1: "100,0", tri2: "83,0", tri3: null, faltas: [0, 4, 0] },
-  { disciplina: "Literatura Arte e Movimento", tri1: "77,0", tri2: "80,0", tri3: null, faltas: [0, 3, 0] },
-  { disciplina: "Práticas Experimentais", tri1: 76, tri2: "84,0", tri3: null, faltas: [2, 4, 0] }
+llet disciplinas = [
+  { disciplina: "Língua Portuguesa", tri1: 8.0, tri2: 8.4, tri3: null, faltas: [2, 7, 0] },
+  { disciplina: "Matemática", tri1: 6.9, tri2: 8.5, tri3: null, faltas: [10, 8, 0] },
+  { disciplina: "Ciências", tri1: 8.5, tri2: 6.8, tri3: null, faltas: [7, 7, 0] },
+  { disciplina: "História", tri1: 8.8, tri2: 8.8, tri3: null, faltas: [3, 3, 0] },
+  { disciplina: "Geografia", tri1: 7.2, tri2: 6.6, tri3: null, faltas: [2, 1, 0] },
+  { disciplina: "Língua Inglesa", tri1: 9.1, tri2: 8.8, tri3: null, faltas: [1, 4, 0] },
+  { disciplina: "Arte", tri1: 6.2, tri2: 6.0, tri3: null, faltas: [2, 4, 0] },
+  { disciplina: "Educação Física", tri1: 9.1, tri2: 9.2, tri3: null, faltas: [1, 2, 0] },
+  { disciplina: "Educação Digital", tri1: 7.0, tri2: 6.0, tri3: null, faltas: [4, 4, 0] },
+  { disciplina: "Educação Financeira", tri1: 7.6, tri2: 8.8, tri3: null, faltas: [2, 1, 0] },
+  { disciplina: "Estudo Orientado", tri1: 8.2, tri2: 9.1, tri3: null, faltas: [2, 2, 0] },
+  { disciplina: "Redação e Leitura", tri1: 6.0, tri2: 7.5, tri3: null, faltas: [3, 6, 0] },
+  { disciplina: "Pensamento Lógico", tri1: 10.0, tri2: 8.3, tri3: null, faltas: [0, 4, 0] },
+  { disciplina: "Literatura Arte e Movimento", tri1: 7.7, tri2: 8.0, tri3: null, faltas: [0, 3, 0] },
+  { disciplina: "Práticas Experimentais", tri1: 7.6, tri2: 8.4, tri3: null, faltas: [2, 4, 0] }
 ];
 
 // Função para normalizar notas antigas para a escala de 0 a 10
