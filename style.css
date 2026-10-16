@@ -131,3 +131,185 @@ tr:last-child td {
     font-size: 0.85rem;
   }
 }
+
+/* ==========================================================================
+   NOVOS ESTILOS — Preservando a identidade visual escura do projeto original
+   ========================================================================== */
+
+/* Tela de Acesso por PIN */
+.acesso-container {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.acesso-info {
+  display: flex;
+  gap: 20px;
+  color: #8b949e;
+  font-size: 1rem;
+}
+
+.acesso-info strong {
+  color: #ffffff;
+}
+
+.acesso-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.acesso-form label {
+  font-weight: 600;
+  color: #8b949e;
+}
+
+.acesso-form input, .tabela-editor-container input {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.acesso-form input:focus, .tabela-editor-container input:focus {
+  border-color: #58a6ff;
+}
+
+/* Botões Gerais */
+.btn-acao {
+  background-color: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #c9d1d9;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-acao:hover {
+  background-color: #30363d;
+  border-color: #8b949e;
+  color: #ffffff;
+}
+
+#btn-entrar {
+  background-color: #238636;
+  border-color: #2ea44f;
+  color: #ffffff;
+}
+
+#btn-entrar:hover {
+  background-color: #2ea44f;
+}
+
+#btn-alterar {
+  margin-top: 15px;
+}
+
+/* Mensagens de Feedback */
+.mensagem-status {
+  width: 100%;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.status-erro {
+  color: #f85149 !important;
+}
+
+.status-sucesso {
+  color: #3fb950 !important;
+}
+
+/* Estrutura do Modal do Editor */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-conteudo {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.modal-conteudo h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.tabela-editor-container {
+  overflow-y: auto;
+  margin-bottom: 20px;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+}
+
+.tabela-editor-container input {
+  width: 70px;
+  text-align: center;
+  padding: 6px;
+}
+
+/* Estilização para campos com erro de validação */
+.tabela-editor-container input.campo-invalido {
+  border-color: #f85149 !important;
+  background-color: rgba(248, 81, 73, 0.1);
+}
+
+.modal-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-salvar {
+  background-color: #238636;
+  border-color: #2ea44f;
+  color: #ffffff;
+}
+
+.btn-salvar:hover {
+  background-color: #2ea44f;
+}
+
+.btn-cancelar {
+  background-color: #da3637;
+  border-color: #f85149;
+  color: #ffffff;
+}
+
+.btn-cancelar:hover {
+  background-color: #f85149;
+}
