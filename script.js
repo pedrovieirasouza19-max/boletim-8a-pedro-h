@@ -10,7 +10,7 @@ let pinSessao = "";
 
 // Dados brutos locais das disciplinas do 8º Ano (usados caso a API retorne null)
 let disciplinas = [
-  { disciplina: "Língua Portuguesa", tri1: 81, tri2: "84,0", tri3: null, faltas: [2, 7, 0] },
+  { disciplina: "Língua Portuguesa", tri1: 80, tri2: "84,0", tri3: null, faltas: [2, 7, 0] },
   { disciplina: "Matemática", tri1: 69, tri2: "85,0", tri3: null, faltas: [10, 8, 0] },
   { disciplina: "Ciências", tri1: 85, tri2: "68,0", tri3: null, faltas: [7, 7, 0] },
   { disciplina: "História", tri1: "88,0", tri2: "88,0", tri3: null, faltas: [3, 3, 0] },
