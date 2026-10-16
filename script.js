@@ -2,7 +2,7 @@
 const CONFIG_ALUNO = {
   turma: "8A",
   numeroChamada: 28,
-  apiUrl: "https://profbt.com.br"
+  apiUrl: "https://boletim-apiprofbt.com.br"
 };
 
 // Variável de sessão mantida estritamente em memória dinâmica
