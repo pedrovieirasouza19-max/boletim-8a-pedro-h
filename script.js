@@ -255,4 +255,4 @@ function abrirEditor() {
       <td><input type="text" id="f2-${index}" value="${obterFaltaPorTrimestre(item.faltas, 1)}"></td>
       <td><input type="text" id="f3-${index}" value="${obterFaltaPorTrimestre(item.faltas, 2)}"></td>
     `;
-
+    
