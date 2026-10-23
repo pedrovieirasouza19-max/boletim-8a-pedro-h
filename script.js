@@ -1,23 +1,23 @@
 // PIN de acesso configurado
 const PIN_CORRETO = "1234";
 
-// Estrutura de dados com todas as disciplinas da imagem (notas convertidas para escala de 0 a 10)
+// Estrutura de dados com notas e faltas atualizadas do boletim
 let disciplinas = [
-  { nome: "Língua Portuguesa", tri1: 8.0, tri2: 8.4, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Matemática", tri1: 6.9, tri2: 8.5, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Ciências", tri1: 8.5, tri2: 6.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "História", tri1: 8.8, tri2: 8.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Geografia", tri1: 7.2, tri2: 6.6, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Língua Inglesa", tri1: 9.1, tri2: 8.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Arte", tri1: 6.2, tri2: 6.0, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Educação Física", tri1: 9.1, tri2: 9.2, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Educação Digital", tri1: 7.0, tri2: 6.0, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Educação Financeira", tri1: 7.6, tri2: 8.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Estudo Orientado", tri1: 8.2, tri2: 9.1, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Redação e Leitura", tri1: 6.0, tri2: 7.5, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Pensamento Lógico", tri1: 10.0, tri2: 8.3, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Literatura Arte e Movimento", tri1: 7.7, tri2: 8.0, tri3: 0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Práticas Experimentais", tri1: 7.6, tri2: 8.4, tri3: 0, f1: 0, f2: 0, f3: 0 }
+  { nome: "Língua Portuguesa", tri1: 8.0, tri2: 8.4, tri3: 0, f1: 2, f2: 7, f3: 0 },
+  { nome: "Matemática", tri1: 6.9, tri2: 8.5, tri3: 0, f1: 10, f2: 8, f3: 0 },
+  { nome: "Ciências", tri1: 8.5, tri2: 6.8, tri3: 0, f1: 7, f2: 7, f3: 0 },
+  { nome: "História", tri1: 8.8, tri2: 8.8, tri3: 0, f1: 3, f2: 3, f3: 0 },
+  { nome: "Geografia", tri1: 7.2, tri2: 6.6, tri3: 0, f1: 2, f2: 1, f3: 0 },
+  { nome: "Língua Inglesa", tri1: 9.1, tri2: 8.8, tri3: 0, f1: 1, f2: 4, f3: 0 },
+  { nome: "Arte", tri1: 6.2, tri2: 6.0, tri3: 0, f1: 2, f2: 4, f3: 0 },
+  { nome: "Educação Física", tri1: 9.1, tri2: 9.2, tri3: 0, f1: 1, f2: 2, f3: 0 },
+  { nome: "Educação Digital", tri1: 7.0, tri2: 6.0, tri3: 0, f1: 4, f2: 4, f3: 0 },
+  { nome: "Educação Financeira", tri1: 7.6, tri2: 8.8, tri3: 0, f1: 2, f2: 1, f3: 0 },
+  { nome: "Estudo Orientado", tri1: 8.2, tri2: 9.1, tri3: 0, f1: 2, f2: 2, f3: 0 },
+  { nome: "Redação e Leitura", tri1: 6.0, tri2: 7.5, tri3: 0, f1: 3, f2: 6, f3: 0 },
+  { nome: "Pensamento Lógico", tri1: 10.0, tri2: 8.3, tri3: 0, f1: 0, f2: 4, f3: 0 },
+  { nome: "Literatura Arte e Movimento", tri1: 7.7, tri2: 8.0, tri3: 0, f1: 0, f2: 3, f3: 0 },
+  { nome: "Práticas Experimentais", tri1: 7.6, tri2: 8.4, tri3: 0, f1: 2, f2: 4, f3: 0 }
 ];
 
 // 1. Autenticação por PIN
