@@ -1,16 +1,23 @@
-// PIN padrão de acesso
+// PIN de acesso configurado
 const PIN_CORRETO = "1234";
 
-// Estrutura de dados das disciplinas com notas e faltas por trimestre
+// Estrutura de dados com todas as disciplinas da imagem (notas convertidas para escala de 0 a 10)
 let disciplinas = [
-  { nome: "Língua Portuguesa", tri1: 8.5, tri2: 7.0, tri3: 8.0, f1: 1, f2: 0, f3: 2 },
-  { nome: "Matemática", tri1: 6.0, tri2: 5.5, tri3: 6.5, f1: 2, f2: 1, f3: 1 },
-  { nome: "História", tri1: 9.0, tri2: 8.5, tri3: 9.5, f1: 0, f2: 0, f3: 0 },
-  { nome: "Geografia", tri1: 7.5, tri2: 8.0, tri3: 7.0, f1: 1, f2: 1, f3: 0 },
-  { nome: "Ciências", tri1: 8.0, tri2: 7.5, tri3: 8.5, f1: 0, f2: 2, f3: 1 },
-  { nome: "Inglês", tri1: 9.5, tri2: 9.0, tri3: 10.0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Educação Física", tri1: 10.0, tri2: 9.5, tri3: 10.0, f1: 0, f2: 0, f3: 0 },
-  { nome: "Arte", tri1: 8.0, tri2: 8.5, tri3: 9.0, f1: 0, f2: 0, f3: 0 }
+  { nome: "Língua Portuguesa", tri1: 8.0, tri2: 8.4, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Matemática", tri1: 6.9, tri2: 8.5, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Ciências", tri1: 8.5, tri2: 6.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "História", tri1: 8.8, tri2: 8.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Geografia", tri1: 7.2, tri2: 6.6, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Língua Inglesa", tri1: 9.1, tri2: 8.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Arte", tri1: 6.2, tri2: 6.0, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Educação Física", tri1: 9.1, tri2: 9.2, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Educação Digital", tri1: 7.0, tri2: 6.0, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Educação Financeira", tri1: 7.6, tri2: 8.8, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Estudo Orientado", tri1: 8.2, tri2: 9.1, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Redação e Leitura", tri1: 6.0, tri2: 7.5, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Pensamento Lógico", tri1: 10.0, tri2: 8.3, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Literatura Arte e Movimento", tri1: 7.7, tri2: 8.0, tri3: 0, f1: 0, f2: 0, f3: 0 },
+  { nome: "Práticas Experimentais", tri1: 7.6, tri2: 8.4, tri3: 0, f1: 0, f2: 0, f3: 0 }
 ];
 
 // 1. Autenticação por PIN
@@ -23,7 +30,7 @@ function autenticarEstudante() {
     document.getElementById("conteudo-boletim").style.display = "block";
     renderizarTabela();
   } else {
-    msgAcesso.style.color = "#d9534f";
+    msgAcesso.className = "mensagem-status status-erro";
     msgAcesso.textContent = "PIN incorreto. Tente novamente!";
   }
 }
@@ -39,7 +46,9 @@ function renderizarTabela() {
   let precisamAtencao = 0;
 
   disciplinas.forEach(item => {
-    const media = (item.tri1 + item.tri2 + item.tri3) / 3;
+    // Calcula a média considerando apenas os trimestres com notas lançadas
+    const trimestresComNota = [item.tri1, item.tri2, item.tri3].filter(n => n > 0).length || 1;
+    const media = (item.tri1 + item.tri2 + item.tri3) / trimestresComNota;
     const totalFaltas = item.f1 + item.f2 + item.f3;
 
     somaMedias += media;
@@ -67,7 +76,7 @@ function renderizarTabela() {
       <td><strong>${item.nome}</strong></td>
       <td>${item.tri1.toFixed(1)}</td>
       <td>${item.tri2.toFixed(1)}</td>
-      <td>${item.tri3.toFixed(1)}</td>
+      <td>${item.tri3 > 0 ? item.tri3.toFixed(1) : '-'}</td>
       <td><strong>${media.toFixed(1)}</strong></td>
       <td>${totalFaltas}</td>
       <td><span class="badge ${classeBadge}">${situacao}</span></td>
@@ -83,7 +92,7 @@ function renderizarTabela() {
   document.getElementById("precisam-atencao").textContent = precisamAtencao;
 }
 
-// 3. Abre a janela (modal) de edição com as notas/faltas atuais
+// 3. Abre o modal de edição com as notas/faltas atuais
 function abrirEditor() {
   const corpoEditor = document.getElementById("corpo-editor");
   corpoEditor.innerHTML = "";
