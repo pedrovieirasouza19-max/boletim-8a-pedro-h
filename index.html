@@ -4,38 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boletim Digital - 8º Ano</title>
+  <!-- Favicon para evitar o erro 404 no console -->
+  <link rel="icon" href="https://fav.farm/📚">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
-    <!-- Tela de Acesso por PIN (O PIN padrão é: 1234) -->
+    <!-- Tela de Acesso por PIN -->
     <section id="secao-acesso" class="acesso-container">
-      <div class="acesso-card">
-        <h2>Acesso ao Boletim</h2>
-        <div class="acesso-info">
-          <span><strong>Série:</strong> 8º Ano</span>
-          <span><strong>Turma:</strong> 8A</span>
-          <span><strong>Chamada:</strong> 28</span>
-        </div>
-        <div class="acesso-form">
-          <label for="campo-pin">Digite seu PIN:</label>
-          <input type="password" id="campo-pin" placeholder="Ex: 1234">
-          <button id="btn-entrar" onclick="autenticarEstudante()">Entrar</button>
-        </div>
-        <p id="mensagem-acesso" class="mensagem-status"></p>
+      <div class="acesso-info">
+        <span><strong>Série:</strong> 8º Ano</span>
+        <span><strong>Turma:</strong> 8A</span>
+        <span><strong>Chamada:</strong> 28</span>
       </div>
+      <div class="acesso-form">
+        <label for="campo-pin">PIN:</label>
+        <input type="password" id="campo-pin" placeholder="Digite seu PIN">
+        <button id="btn-entrar" onclick="autenticarEstudante()">Entrar</button>
+      </div>
+      <p id="mensagem-acesso" class="mensagem-status"></p>
     </section>
 
     <!-- Conteúdo do Boletim (Escondido até o Login) -->
     <div id="conteudo-boletim" style="display: none;">
       <!-- Cabeçalho do Boletim -->
       <header class="header">
-        <div>
-          <h1>Boletim Digital</h1>
-          <p class="subtitulo">Estudante Exemplo • 8º Ano A</p>
-        </div>
-        <button id="btn-alterar" class="btn-acao" onclick="abrirEditor()">✏️ Alterar Notas e Faltas</button>
+        <h1>Boletim Digital</h1>
+        <p class="subtitulo">Estudante Exemplo • 8º Ano</p>
+
+        <!-- Botão para acionar a edição dos dados -->
+        <button id="btn-alterar" class="btn-acao" onclick="abrirEditor()">✏️ Alterar dados</button>
       </header>
 
       <!-- Área Superior com Cards de Resumo -->
@@ -82,7 +81,7 @@
             </tr>
           </thead>
           <tbody id="corpo-tabela">
-            <!-- Inserido dinamicamente pelo JavaScript -->
+            <!-- As linhas das disciplinas serão inseridas dinamicamente pelo script.js -->
           </tbody>
         </table>
       </section>
@@ -94,7 +93,7 @@
     <div class="modal-conteudo">
       <h2>Alterar Notas e Faltas</h2>
       <p id="mensagem-salvar" class="mensagem-status"></p>
-      
+
       <div class="tabela-editor-container">
         <table>
           <thead>
@@ -109,7 +108,7 @@
             </tr>
           </thead>
           <tbody id="corpo-editor">
-            <!-- Gerado dinamicamente pelo JavaScript -->
+            <!-- Campos gerados dinamicamente via JavaScript -->
           </tbody>
         </table>
       </div>
