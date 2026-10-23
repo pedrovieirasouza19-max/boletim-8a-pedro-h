@@ -101,19 +101,32 @@ tr:last-child td {
   border-bottom: none;
 }
 
-/* Estilos de Situação */
-.situacao-bom {
-  color: #3fb950; /* Verde para bom desempenho */
+/* Badges / Destaques de Situação */
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
   font-weight: bold;
+  display: inline-block;
 }
 
-.situacao-atencao {
-  color: #f85149; /* Vermelho/laranja para atenção */
-  font-weight: bold;
+.status-aprovado, .situacao-bom {
+  color: #3fb950; /* Verde */
+  background-color: rgba(63, 185, 80, 0.15);
+}
+
+.status-atencao, .situacao-atencao {
+  color: #d29922; /* Amarelo / Laranja */
+  background-color: rgba(210, 153, 34, 0.15);
+}
+
+.status-reprovado {
+  color: #f85149; /* Vermelho */
+  background-color: rgba(248, 81, 73, 0.15);
 }
 
 .situacao-indisponivel {
-  color: #8b949e; /* Cinza para nota não disponível */
+  color: #8b949e; /* Cinza */
 }
 
 /* Ajustes para telas de Celular */
@@ -130,11 +143,12 @@ tr:last-child td {
     padding: 10px 8px;
     font-size: 0.85rem;
   }
+  
+  .acesso-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
-
-/* ==========================================================================
-   NOVOS ESTILOS — Preservando a identidade visual escura do projeto original
-   ========================================================================== */
 
 /* Tela de Acesso por PIN */
 .acesso-container {
