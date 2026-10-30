@@ -72,6 +72,70 @@ body {
   margin-top: 5px;
 }
 
+/* Área de Gráficos */
+.area-graficos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.grafico-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease;
+}
+
+.grafico-card h2 {
+  font-size: 1.05rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.grafico-cabecalho-faltas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.grafico-cabecalho-faltas h2 {
+  margin-bottom: 0;
+}
+
+.grafico-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  flex-grow: 1;
+}
+
+.grafico-container-barras {
+  height: 420px;
+}
+
+/* Badge Perigo */
+.badge-perigo {
+  background-color: rgba(248, 81, 73, 0.2);
+  color: #f85149;
+  border: 1px solid #f85149;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.card-perigo {
+  border-color: #f85149 !important;
+  box-shadow: 0 0 10px rgba(248, 81, 73, 0.15);
+}
+
 /* Tabela Responsiva */
 .tabela-container {
   background-color: #161b22;
@@ -127,27 +191,6 @@ tr:last-child td {
 
 .situacao-indisponivel {
   color: #8b949e; /* Cinza */
-}
-
-/* Ajustes para telas de Celular */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
-
-  .header h1 {
-    font-size: 1.8rem;
-  }
-
-  th, td {
-    padding: 10px 8px;
-    font-size: 0.85rem;
-  }
-  
-  .acesso-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
 }
 
 /* Tela de Acesso por PIN */
@@ -326,4 +369,39 @@ tr:last-child td {
 
 .btn-cancelar:hover {
   background-color: #f85149;
+}
+
+/* Responsividade da Grid de Gráficos (Tablet e Celular) */
+@media (max-width: 992px) {
+  .area-graficos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  th, td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+  
+  .acesso-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .area-graficos {
+    grid-template-columns: 1fr;
+  }
+
+  .grafico-container-barras {
+    height: 380px;
+  }
 }
